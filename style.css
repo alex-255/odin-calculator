@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+}
+
+.calculator {
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 5px solid darkgray;
+    padding: 5px;
+}
+
+.display {
+    background-color: gray;
+    border: 2px solid black;
+    padding: 20px;
+    text-align: right;
+}
+
+.row {
+    display: flex;
+    gap: 5px;
+}
+
+.btn {
+    width: 100%;
+    padding: 20px;
+    background-color: cornflowerblue;
+    border: 2px solid gray;
+    text-align: center;
+}
+
+.zero {
+    flex-basis: 0.7;
+}
