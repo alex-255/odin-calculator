@@ -26,7 +26,7 @@ const operate = (num1, operator, num2) => {
       return multiply(num1, num2);
 
     case "/":
-      return divide(num1, num2);
+      return Math.round(divide(num1, num2) * 100) / 100;
 
     default:
       break;
@@ -50,12 +50,18 @@ const buttonPressed = () => {
           num1 = parseInt(event.target.textContent);
           console.log(num1);
           display.textContent = num1;
-        } else {
-          if (num2 === undefined) {
-            num2 = parseInt(event.target.textContent);
-            console.log(num2);
-            display.textContent += num2;
-          }
+        } else if (num1 !== undefined && operator === undefined) {
+          num1 = parseInt(num1 + event.target.textContent);
+          display.textContent = num1;
+        }
+
+        if (num2 === undefined && operator !== undefined) {
+          num2 = parseInt(event.target.textContent);
+          console.log(num2);
+          display.textContent += num2;
+        } else if (num2 !== undefined && operator !== undefined) {
+          num2 = parseInt(num2 + event.target.textContent);
+          display.textContent = num1 + operator + num2;
         }
       } else if (
         event.target.classList.contains("plus") ||
