@@ -26,7 +26,11 @@ const operate = (num1, operator, num2) => {
       return multiply(num1, num2);
 
     case "/":
-      return Math.round(divide(num1, num2) * 100) / 100;
+      if (num2 === 0) {
+        return "ZERO";
+      } else {
+        return Math.round(divide(num1, num2) * 100) / 100;
+      }
 
     default:
       break;
@@ -38,11 +42,11 @@ let num2;
 let operator;
 let result;
 let operator2;
+const calculator = document.querySelector(".calculator");
+const display = calculator.querySelector(".display");
 
 const buttonPressed = () => {
-  const calculator = document.querySelector(".calculator");
   const buttons = calculator.querySelectorAll(".btn");
-  const display = calculator.querySelector(".display");
   buttons.forEach((button) => {
     button.addEventListener("click", (event) => {
       if (event.target.classList.contains("number")) {
@@ -74,22 +78,40 @@ const buttonPressed = () => {
           console.log(operator);
           display.textContent += operator;
         } else if (operator !== undefined && operator2 === undefined) {
-          result = operate(num1, operator, num2);
-          operator2 = event.target.textContent;
-          num1 = result;
-          operator = operator2;
-          num2 = undefined;
-          operator2 = undefined;
-          display.textContent = num1 + operator;
+          if (num2 === undefined) {
+            operator = event.target.textContent;
+            display.textContent += operator;
+          } else {
+            result = operate(num1, operator, num2);
+            operator2 = event.target.textContent;
+            num1 = result;
+            operator = operator2;
+            num2 = undefined;
+            operator2 = undefined;
+            display.textContent = num1 + operator;
+          }
         }
       } else if (event.target.classList.contains("equal")) {
-        result = operate(num1, operator, num2);
-        console.log(result);
-        display.textContent += `=${result}`;
+        if (
+          num1 === undefined ||
+          operator === undefined ||
+          num2 === undefined
+        ) {
+          display.textContent = "ERROR";
+        } else {
+          result = operate(num1, operator, num2);
+          if (result === "ZERO") {
+            display.textContent = "ZERO DIV ERROR";
+          } else {
+            console.log(result);
+            display.textContent += `=${result}`;
+          }
+        }
       } else if (event.target.classList.contains("clear")) {
         num1 = undefined;
         operator = undefined;
         num2 = undefined;
+        operator2 = undefined;
         display.textContent = 0;
       }
     });
