@@ -47,12 +47,10 @@ const buttonPressed = () => {
             if (event.target.classList.contains("number")) {
                 if (num1 === undefined) {
                     num1 = parseInt(event.target.textContent);
-                    console.log(num1);
                     display.textContent = num1;
                 } else {
                     if (num2 === undefined) {
                         num2 = parseInt(event.target.textContent);
-                        console.log(num2);
                         display.textContent += num2;
                     }
                 }
@@ -64,12 +62,10 @@ const buttonPressed = () => {
             ) {
                 if (operator === undefined) {
                     operator = event.target.textContent;
-                    console.log(operator);
                     display.textContent += operator;
                 }
             } else if (event.target.classList.contains("equal")) {
                 result = operate(num1, operator, num2);
-                console.log(result);
                 display.textContent += `=${result}`;
             } else if (event.target.classList.contains("clear")) {
                 num1 = undefined;
